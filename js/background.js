@@ -71,11 +71,11 @@ var funcB = function (details) {
 
                 if (typeof keywords[newKeyword] == "undefined") {
                     keywords[newKeyword] = {
-                        name: newKeyword.trim(),
-                        value: 1
+                        text: newKeyword.trim(),
+                        size: 1
                     };
                 } else {
-                    keywords[newKeyword].value++;
+                    keywords[newKeyword].size++;
                 }
             }
         }
