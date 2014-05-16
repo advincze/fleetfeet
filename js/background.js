@@ -24,7 +24,7 @@ var funcB = function (details) {
     function registerPreference(category, domain) {
         if (typeof preferences[category] === "undefined") {
             preferences[category] = {
-                value : 1,
+                value: 1,
                 name: category,
                 domains: new Array(domain)
             };
@@ -78,15 +78,17 @@ var funcB = function (details) {
     var contentLength = 0;
     for (var i = 0, l = details.responseHeaders.length; i < l; ++i) {
         if (details.responseHeaders[i].name == "Content-Length") {
+            contentLength = details.responseHeaders[i].value;
             break;
         }
     }
 
-    var skip = /(\.gif|\.png|\.gif|\.bmp)$/g.test(url)
-        && contentLength > 1000;
+    var skip = /(\.jpeg|\.jpg|\.png|\.gif|\.bmp|\.css)$/g.test(url)
+        && contentLength > 200;
 
     if (!skip) {
 
+//        console.log("adding " + url + " contentLength [" + contentLength + "]");
         if (typeof domains[domain] != "undefined") {
             categorizeDomain(domain);
             domains[domain]++;
