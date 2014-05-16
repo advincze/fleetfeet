@@ -21,11 +21,16 @@ var funcA = function (details) {
 
 var funcB = function (details) {
 
-    function registerPreference(category) {
+    function registerPreference(category, domain) {
         if (typeof preferences[category] === "undefined") {
-            preferences[category] = 1;
+            preferences[category] = {
+                value : 1,
+                name: category,
+                domains: new Array(domain)
+            };
         } else {
-            preferences[category]++;
+            preferences[category].value++;
+            preferences[category].domains.push(domain);
         }
     }
 
@@ -36,7 +41,7 @@ var funcB = function (details) {
                 var urls = categories[category];
                 for (var i = 0; i < urls.length; i++) {
                     if (domain === urls[i]) {
-                        registerPreference(category);
+                        registerPreference(category, domain);
                     }
                 }
             }

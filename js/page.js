@@ -7,10 +7,7 @@ $(document).ready(function () {
 
         for (var preference in preferences) {
             if (preferences.hasOwnProperty(preference)) {
-                barData.push({
-                    value: preferences[preference],
-                    name: preference
-                });
+                barData.push(preferences[preference]);
             }
         }
 
