@@ -4,6 +4,7 @@ $(document).ready(function () {
     $("#refresh").click(function () {
 
         var barData = [];
+        var preferences = storage.getObject('preferences');
 
         for (var preference in preferences) {
             if (preferences.hasOwnProperty(preference)) {

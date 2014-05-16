@@ -1,8 +1,30 @@
 console.log("-.-");
-var requests = {};
-var urls = {};
-var preferences = {};
-var domains = {};
+
+var Storage = function () {};
+
+Storage.prototype.setObject = function (key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+};
+
+Storage.prototype.getObject = function (key) {
+    var value = localStorage.getItem(key);
+    return value && JSON.parse(value);
+};
+
+var storage = new Storage();
+
+if (null == storage.getObject('preferences')) {
+    storage.setObject('preferences', {});
+}
+if (null == storage.getObject('requests')) {
+    storage.setObject('requests', {});
+}
+if (null == storage.getObject('urls')) {
+    storage.setObject('urls', {});
+}
+if (null == storage.getObject('domains')) {
+    storage.setObject('domains', {});
+}
 
 categories = {
     shopping: ["zalando.de", "otto.de", "notebooksbilliger", "cyberport.de", "amazon.de", "amazon.com", "ebay.de", "ebay.com", "idealo.de", "guenstiger.de", "billiger.de"],
@@ -22,6 +44,9 @@ var funcA = function (details) {
 var funcB = function (details) {
 
     function registerPreference(category, domain) {
+
+        var preferences = storage.getObject('preferences');
+
         if (typeof preferences[category] === "undefined") {
             preferences[category] = {
                 value: 1,
@@ -32,6 +57,8 @@ var funcB = function (details) {
             preferences[category].value++;
             preferences[category].domains.push(domain);
         }
+
+        storage.setObject('preferences', preferences);
     }
 
     function categorizeDomain(domain) {
@@ -48,33 +75,22 @@ var funcB = function (details) {
         }
     }
 
-//    function categorizeSearch(domain, url) {
-//        switch (domain) {
-//            case "google.de":
-//                registerPreference(/q=(.*)(&|$)]/.exec(url)[1]);
-//                break;
-//            case "amazon.de":
-//                break;
-//
-//            case "twitter.com":
-//                break;
-//        }
-//    }
-
-    var headers = details.requestHeaders, blockingResponse = {};
-
+    var requests = storage.getObject('requests');
     requests[details.requestId] = details;
+    storage.setObject('requests', requests);
 
     // categorize
 
     var url = details.url;
+    var urls = storage.getObject("urls");
     if (typeof urls[url] != "undefined") {
         urls[url]++;
     } else {
         urls[url] = 1;
     }
+    storage.setObject("urls", urls);
     var domain = url.match(/(\w+\.\w+)\//)[1];
-
+    var headers = details.requestHeaders, blockingResponse = {};
     var contentLength = 0;
     for (var i = 0, l = details.responseHeaders.length; i < l; ++i) {
         if (details.responseHeaders[i].name == "Content-Length") {
@@ -83,11 +99,13 @@ var funcB = function (details) {
         }
     }
 
+    /** skip this URL if size is above threshold and it is of a certain type */
     var skip = /(\.jpeg|\.jpg|\.png|\.gif|\.bmp|\.css)$/g.test(url)
         && contentLength > 200;
 
     if (!skip) {
 
+        var domains = storage.getObject("domains");
 //        console.log("adding " + url + " contentLength [" + contentLength + "]");
         if (typeof domains[domain] != "undefined") {
             categorizeDomain(domain);
@@ -95,6 +113,7 @@ var funcB = function (details) {
         } else {
             domains[domain] = 1;
         }
+        storage.setObject("domains", domains);
     }
 
     blockingResponse.requestHeaders = headers;
