@@ -1,7 +1,8 @@
 $(document).ready(function () {
     console.log("test");
 
-    $("#refresh").click(function () {
+    var $refresh = $("#refresh");
+    $refresh.click(function () {
 
         var barData = [];
         var preferences = storage.getObject('preferences');
@@ -24,5 +25,8 @@ $(document).ready(function () {
 
         initBars(barData)
 
-    })
+    });
+
+    $refresh.click();
+
 });
