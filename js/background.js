@@ -54,24 +54,30 @@ var funcB = function (details) {
         return fallback;
     }
 
+    /**
+     * for a given category, add this domain and with it the array of keywords
+     */
     function registerPreference(category, domain, keywords) {
 
-        function mergeKeywords(keywords, newKeywords) {
+        /**
+         * add some {@code newKeyword} to an existing set of {@code keywords}
+         */
+        function mergeKeywords(keywords, newKeyword) {
 
-            console.log("adding " + newKeywords + " to " + keywords);
+            console.log("adding " + newKeyword + " to " + keywords);
 
-            for (var i = 0; i < newKeywords.length; i++) {
-                var newKeyword = newKeywords[i].toLowerCase();
+            for (var j = 0; j < keywords.length; j++) {
 
-                if (typeof keywords[newKeyword] == "undefined") {
-                    keywords[newKeyword] = {
-                        name: newKeyword,
-                        value: 1
-                    };
-                } else {
-                    keywords[newKeyword].value++;
+                if (keywords[j].text === newKeyword) {
+                    keywords[j].size++;
+                    return;
                 }
             }
+
+            keywords.push({
+                text: newKeyword,
+                size: 1
+            })
         }
 
 
@@ -82,23 +88,26 @@ var funcB = function (details) {
                 value: 1,
                 name: category,
                 domains: new Array(domain),
-                keywords: {}
+                keywords: []
             };
             for (var i = 0; i < keywords.length; i++) {
-                preferences[category].keywords[keywords[i]] = {
-                    name: keywords[i],
-                    value: 1
-                };
+                preferences[category].keywords.push({
+                    text: keywords[i],
+                    size: 1
+                });
             }
         } else {
             preferences[category].value++;
             preferences[category].domains.push(domain);
-            mergeKeywords(preferences[category].keywords, keywords);
+            for (var i = 0; i < keywords.length; i++) {
+                mergeKeywords(preferences[category].keywords, keywords[i]);
+            }
         }
 
         storage.setObject('preferences', preferences);
     }
 
+    /** try to categorize the domain into one of the predefined categories, also fetch the keywords for the URL */
     function categorizeDomain(domain, url) {
 
 
@@ -162,7 +171,7 @@ chrome.webRequest.onHeadersReceived.addListener(funcB,
     {urls: [ "<all_urls>" ]},
     ['responseHeaders', 'blocking']);
 
-/** completed */
+/** completed --> fetch geoinfo*/
 chrome.webRequest.onCompleted.addListener(function (details) {
         // update geo info
         $.get("http://www.welt.de/geoinfo/info/ip/", function (data) {

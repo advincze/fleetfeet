@@ -1,3 +1,17 @@
+var Storage = function () {
+};
+
+Storage.prototype.setObject = function (key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+};
+
+Storage.prototype.getObject = function (key) {
+    var value = localStorage.getItem(key);
+    return value && JSON.parse(value);
+};
+
+var storage = new Storage();
+
 $(document).ready(function () {
     console.log("test");
 
