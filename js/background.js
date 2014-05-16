@@ -60,24 +60,24 @@ var funcB = function (details) {
     function registerPreference(category, domain, keywords) {
 
         /**
-         * add some keywords to an existing set
+         * add some {@code newKeyword} to an existing set of {@code keywords}
          */
-        function mergeKeywords(keywords, newKeywords) {
+        function mergeKeywords(keywords, newKeyword) {
 
-            console.log("adding " + newKeywords + " to " + keywords);
+            console.log("adding " + newKeyword + " to " + keywords);
 
-            for (var i = 0; i < newKeywords.length; i++) {
-                var newKeyword = newKeywords[i].toLowerCase();
+            for (var j = 0; j < keywords.length; j++) {
 
-                if (typeof keywords[newKeyword] == "undefined") {
-                    keywords[newKeyword] = {
-                        text: newKeyword.trim(),
-                        size: 1
-                    };
-                } else {
-                    keywords[newKeyword].size++;
+                if (keywords[j].text === newKeyword) {
+                    keywords[j].size++;
+                    return;
                 }
             }
+
+            keywords.push({
+                text: newKeyword,
+                size: 1
+            })
         }
 
 
@@ -88,18 +88,20 @@ var funcB = function (details) {
                 value: 1,
                 name: category,
                 domains: new Array(domain),
-                keywords: {}
+                keywords: []
             };
             for (var i = 0; i < keywords.length; i++) {
-                preferences[category].keywords[keywords[i]] = {
-                    name: keywords[i],
-                    value: 1
-                };
+                preferences[category].keywords.push({
+                    text: keywords[i],
+                    size: 1
+                });
             }
         } else {
             preferences[category].value++;
             preferences[category].domains.push(domain);
-            mergeKeywords(preferences[category].keywords, keywords);
+            for (var i = 0; i < keywords.length; i++) {
+                mergeKeywords(preferences[category].keywords, keywords[i]);
+            }
         }
 
         storage.setObject('preferences', preferences);
