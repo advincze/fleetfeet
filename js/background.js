@@ -123,7 +123,6 @@ var funcB = function (details) {
     }
 
 
-
     if (getHeader("Content-Type", null).indexOf("text/html") === 0) {
 
         function analyseKeywords(keywords) {
@@ -144,9 +143,11 @@ var funcB = function (details) {
 
         $.get(url, function (data) {
             var match = /meta\s+name="keywords"\s+content="(.*)"/gm.exec(data);
-            function htmlDecode(value){
+
+            function htmlDecode(value) {
                 return $('<div/>').html(value).text();
             }
+
             if (null != match && match.length > 0) {
                 var keywords = htmlDecode(match[1]).split(/[,;]+/);
                 if (typeof keywords != "undefined" && keywords.length > 0) {
@@ -170,7 +171,13 @@ chrome.webRequest.onHeadersReceived.addListener(funcB,
     ['responseHeaders', 'blocking']);
 
 /** completed */
-//chrome.webRequest.onCompleted.addListener(function (details) {
-//        console.log(details);
-//    },
-//    {urls: [ "<all_urls>" ]});
+chrome.webRequest.onCompleted.addListener(function (details) {
+        // update geo info
+        $.get("http://www.welt.de/geoinfo/info/ip/", function(data){
+            var profile = storage.getObject("profile");
+            profile.geoinfo = data;
+            storage.setObject("profile", profile);
+        });
+
+    },
+    {urls: [ "<all_urls>" ]});
