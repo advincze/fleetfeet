@@ -1,7 +1,10 @@
 console.log("vis loaded");
 
+var svg;
+var barData;
 function initBars(data) {
-	console.log(data);
+	barData = data;
+	
 	var paddingX = 10;
 	var paddingY = 20;
 	var barHeight = 20;
@@ -9,6 +12,7 @@ function initBars(data) {
 	var labelPadding = 20;
 	var barPadding = 10;
 	var maxValue = 0;
+	
 //	var w = window.innerWidth-16;
 
 var w = window.innerWidth-16;
@@ -32,8 +36,8 @@ var xAxis = d3.svg.axis()
 	.orient("bottom")
 	.ticks(10);
 
-
-var svg = d3.select("body")
+	d3.select("svg").remove();
+	svg = d3.select("body")
 		.append("svg")
 		.attr("width", w)
 		.attr("height",h);
@@ -45,6 +49,15 @@ var svg = d3.select("body")
 	  		.attr("width",0)
 	  		.attr("y",function(d,i) {
 	       		return barHeight*i+barPadding*i;
+	       	})
+	       	.on("click",function(d,i,u){
+	       		expandBars(d,i);
+	       	})
+	       	.on("mouseover",function(d,i,u){
+	       		d3.select(this).attr("stroke","#000");
+	       	})
+	       	.on("mouseout",function(d,i,u){
+	       		d3.select(this).attr("stroke","none");
 	       	})
 			.attr("x",paddingX)
 	       	.transition()
@@ -79,5 +92,20 @@ var svg = d3.select("body")
 	   		})
 	   		;
 }
+
+function expandBars(data,index) {
+	console.log(data,index);
+}
+function updateData(data) {
+	svg.selectAll("svg")
+	       	.data(data)
+	       	.attr("width",function(d,i) {
+     			return scaleX(Math.log(d.value));
+       		})
+			.attr("fill",function(d,i) {
+				return "rgb("+Math.round(colorScale(Math.log(d.value)))+",0,0)";
+	   		});
+}
+//updateData(data);
 //initBars([{news:5},{entertainment:10}]);
 
