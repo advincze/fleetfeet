@@ -1,26 +1,26 @@
 {
-  "manifest_version": 2,
+    "manifest_version": 2,
 
-  "name": "Digital Footprint Graph",
-  "description": "Visualize digital Footprints",
-  "version": "1.0",
-  "permissions": [
-  "webRequest",
-  "webRequestBlocking",
-  "<all_urls>"
-  ],
-  "background": {
-    //"scripts": ["background.js"],
-    "page":"background.html",
-    "persistent":true
-  },
-  "content_scripts": [
-    {
-      "matches": ["http://www.welt.de/*"],
-      "css": ["css.css"],
-      "js": ["popup.js"],
-      "run_at": "document_start"
+    "name": "Digital Footprint Graph",
+    "description": "Visualize digital Footprints",
+    "version": "1.0",
+    "permissions": [
+        "webRequest",
+        "webRequestBlocking",
+        "<all_urls>"
+    ],
+    "background": {
+        //"scripts": ["background.js"],
+        "page": "background.html",
+        "persistent": true
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://www.welt.de/*"],
+            "css": ["css.css"],
+            "js": ["popup.js"],
+            "run_at": "document_start"
 
-    }
-  ]
+        }
+    ]
 }
