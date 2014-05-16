@@ -11,3 +11,6 @@ body {
 .starter-template .inactive {
 	display:none;
 }
+.starter-template div {
+	padding-top:10px;
+}
