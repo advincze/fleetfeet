@@ -54,8 +54,14 @@ var funcB = function (details) {
         return fallback;
     }
 
+    /**
+     * for a given category, add this domain and with it the array of keywords
+     */
     function registerPreference(category, domain, keywords) {
 
+        /**
+         * add some keywords to an existing set
+         */
         function mergeKeywords(keywords, newKeywords) {
 
             console.log("adding " + newKeywords + " to " + keywords);
@@ -65,7 +71,7 @@ var funcB = function (details) {
 
                 if (typeof keywords[newKeyword] == "undefined") {
                     keywords[newKeyword] = {
-                        name: newKeyword,
+                        name: newKeyword.trim(),
                         value: 1
                     };
                 } else {
@@ -99,6 +105,7 @@ var funcB = function (details) {
         storage.setObject('preferences', preferences);
     }
 
+    /** try to categorize the domain into one of the predefined categories, also fetch the keywords for the URL */
     function categorizeDomain(domain, url) {
 
 
@@ -162,7 +169,7 @@ chrome.webRequest.onHeadersReceived.addListener(funcB,
     {urls: [ "<all_urls>" ]},
     ['responseHeaders', 'blocking']);
 
-/** completed */
+/** completed --> fetch geoinfo*/
 chrome.webRequest.onCompleted.addListener(function (details) {
         // update geo info
         $.get("http://www.welt.de/geoinfo/info/ip/", function (data) {
