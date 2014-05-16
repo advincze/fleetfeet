@@ -8,3 +8,6 @@ body {
 #refresh {
     margin: 8px -15px 0 15px;
 }
+.starter-template .inactive {
+	display:none;
+}

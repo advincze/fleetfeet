@@ -28,5 +28,10 @@ $(document).ready(function () {
     });
 
     $refresh.click();
-
+    $(".nav-tabs li").on("click",function() {
+        $(".nav-tabs li").removeClass("active");
+        $(this).addClass("active");
+        $(".starter-template .svgwrapper").toggle();
+        $(".starter-template .keywordwrapper").toggle();
+    });
 });
