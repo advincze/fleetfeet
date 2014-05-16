@@ -2,7 +2,7 @@ console.log("vis loaded");
 
 var svg;
 var barData;
-var paddingX = 10;
+var paddingX = 0;
 var paddingY = 20;
 var	barHeight = 20;
 var labelWidth = 80;
@@ -236,7 +236,7 @@ function expandBars(data,index) {
 
  function tagCloud() {
  	
-
+console.log("tag");
   	d3.layout.cloud().size([300, 300])
       .words([
         ".NET", "Silverlight", "jQuery", "CSS3", "HTML5", "JavaScript", "SQL","C#"].map(function(d) {
@@ -249,7 +249,8 @@ function expandBars(data,index) {
       .start();
 }
   	function draw(words) {
-	    d3.select(".starter-template keywordwrapper").append("svg")
+  		console.log("draw");
+	    d3.select(".starter-template .keywordwrapper").append("svg")
         .attr("width", 300)
         .attr("height", 300)
       .append("g")
