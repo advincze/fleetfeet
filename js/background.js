@@ -5,14 +5,16 @@ var preferences = {};
 var domains = {};
 
 categories = {
-    shopping: ["amazon.de"],
-    entertainment: ["youtube.de"],
-    social: ["facebook.com"],
-    news: ["welt.de"],
-    research: ["wikipedia.de", "stackoverflow.com"],
-    sports: ["sport.de"],
-    leisure: ["youporn.com"]
+    shopping: ["zalando.de", "otto.de", "notebooksbilliger", "cyberport.de", "amazon.de", "amazon.com", "ebay.de", "ebay.com", "idealo.de", "guenstiger.de", "billiger.de"],
+    entertainment: ["prosieben.de", "sat1.de", "kabeleins.de", "t-online.de", "maxdome.de", "watchever.de"],
+    social: ["twitter.de", "twitter.com", "facebook.de", "facebook.com", "myspace.de", "linkedin.com", "pinterest.com", "tumblr.com", "instagram.com"],
+    news: ["welt.de", "spiegel.de", "faz.net", "bild.de", "n24.de", "sz.de", "zeit.de", "news.google.de"],
+    research: ["wikipedia.org", "gutefrage.net", "helpster.de", "wer-weiß-was.de", "answers.yahoo.com"],
+    sports: ["formel1.de", "bundesliga.de", "kicker.de", "spox.de", "sport1.de", "de.eurosport.yahoo.com", "11freunde.de", "sportschau.de"],
+    leisure: ["fressnapf.de", "zooplus.de", "pokerstars.eu", "fulltiltpoker.eu", "tvmovie", "tvspielfilm", "4players.de", "yelp.de", "mcfit.com" ],
+    travel: ["hotel.de", "ab-in-den-urlaub.de", "weg.de", "holidaycheck.de", "expedia.de", "tripadvisor.de"]
 };
+
 
 chrome.webRequest.onHeadersReceived.addListener(function (details) {
 
