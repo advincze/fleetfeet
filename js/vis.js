@@ -12,8 +12,10 @@ var scaleX;
 var colorScale;
 var xAxis;
 function initBars(data) {
-	barData = data;
-	
+	barData = data.sort(function (a,b) {
+		return b.value - a.value;
+	});
+	console.log("..",data);
 	
 	var maxValue = 0;
 	
@@ -236,12 +238,9 @@ function expandBars(data,index) {
 
  function tagCloud() {
  	
-console.log("tag");
+	console.log(barData[0].keywords);
   	d3.layout.cloud().size([300, 300])
-      .words([
-        ".NET", "Silverlight", "jQuery", "CSS3", "HTML5", "JavaScript", "SQL","C#"].map(function(d) {
-        return {text: d, size: 10 + Math.random() * 50};
-      }))
+      .words([{text:"a",size:10},{text:"b",size:20}])
       .rotate(function() { return ~~(Math.random() * 2) * 90; })
       .font("Impact")
       .fontSize(function(d) { return d.size; })
