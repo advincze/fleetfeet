@@ -18,7 +18,7 @@ categories = {
 
 chrome.webRequest.onHeadersReceived.addListener(function (details) {
 
-        console.log("Received", details);
+//        console.log("Received", details);
         requests[details.requestId].received = details;
 
     },
@@ -67,7 +67,7 @@ var beforeSendHeadersFunc = function (details) {
     }
     for (var i = 0, l = headers.length; i < l; ++i) {
         if (headers[i].name == 'User-Agent') {
-            console.log("Send", details);
+//            console.log("Send", details);
             //console.log(headers[i].value);
             break;
         }

@@ -14,6 +14,16 @@ $(document).ready(function () {
             }
         }
 
+
+        console.log('barData -- start');
+
+        for (var i in barData) {
+            console.log(barData[i]);
+        }
+
+        console.log('barData -- end');
+
+
         initBars(barData)
 
     })
