@@ -47,7 +47,7 @@ var funcB = function (details) {
 
     function getHeader(name, fallback) {
         for (var i = 0, l = details.responseHeaders.length; i < l; ++i) {
-            if (details.responseHeaders[i].name == name) {
+            if (details.responseHeaders[i].name.toLowerCase() == name) {
                 return details.responseHeaders[i].value;
             }
         }
@@ -59,12 +59,14 @@ var funcB = function (details) {
      */
     function registerPreference(category, domain, keywords) {
 
+        // console.log( "registerPreference(",category, domain, keywords,")");
+
         /**
          * add some {@code newKeyword} to an existing set of {@code keywords}
          */
         function mergeKeywords(keywords, newKeyword) {
 
-            // console.log("adding " + newKeyword + " to " + keywords);
+            //  console.log("adding " + newKeyword + " to " + keywords);
 
             for (var j = 0; j < keywords.length; j++) {
 
@@ -110,8 +112,18 @@ var funcB = function (details) {
     /** try to categorize the domain into one of the predefined categories, also fetch the keywords for the URL */
     function categorizeDomain(domain, url) {
 
+        // console.log("categorizeDomain(",domain, url,")");
+        // console.log("header",getHeader("Content-Type", null));
+        // console.log("header",getHeader("content-type", null));
+        
+        if (url.indexOf("http://www.welt.de/geoinfo/info/ip/") === 0){
+            // console.log("ignore own calls");
+            return;
+        }
 
-        if (getHeader("Content-Type", null).indexOf("text/html") === 0) {
+
+        if (getHeader("content-type", null).indexOf("text/html") === 0) {
+            // console.log("domain: ", domain);
 
             $.get(url, function (data) {
                 var match = /meta\s+name="keywords"\s+content="(.*)"/gm.exec(data);
@@ -133,6 +145,7 @@ var funcB = function (details) {
                 for (var category in categories) {
                     if (categories.hasOwnProperty(category)) {
                         var urls = categories[category];
+
                         for (var i = 0; i < urls.length; i++) {
                             if (domain === urls[i]) {
                                 registerPreference(category, domain, keywordsForUrl);
