@@ -5,7 +5,7 @@ body {
     padding: 40px 15px;
     text-align: center;
 }
-#refresh {
+.navbar-nav a {
     margin: 8px -15px 0 15px;
 }
 .starter-template .inactive {

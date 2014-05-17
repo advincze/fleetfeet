@@ -19,8 +19,12 @@ function hideMyAss() {
 }
 
 function startHideMyAss() {
-	// console.log("hiD)");
+	
+	
 	collapseBars(barData);
+	d3.select("svg")
+	.append("image").attr("x",(w-220)/2).attr("y",(h-220)/2).attr("width",220).attr("height",220).attr("xlink:href","css/8u7yd.gif");
+
 }
 
 function finishHideMyAss() {
@@ -35,10 +39,12 @@ function collapseBars(data) {
 }
 
 function initBars(data) {
+w = $(".starter-template").outerWidth();
+h = $(".starter-template").outerHeight();
 	barData = data.sort(function (a,b) {
 		return b.value - a.value;
 	});
-	// console.log("..",data);
+	//console.log("..",data);
 	
 	var maxValue = 0;
 	
@@ -46,8 +52,7 @@ function initBars(data) {
 
 //var w = window.innerWidth-16;
 //var h = window.innerHeight-16;
-w = $(".starter-template").outerWidth();
-h = $(".starter-template").outerHeight();
+
 
 
 maxValue = d3.max(data,function(d) {
@@ -149,7 +154,7 @@ function expandBars(data,index) {
 			console.log(u,expanded[u]);
 			svg
 				.append("rect")
-	   			.attr("x",barPadding)
+	   			.attr("x",paddingX)
 	   			.attr("class","sub")
 				.attr("width",scaleX(expanded[u]))
 				.attr("height",barHeight)
