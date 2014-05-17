@@ -13,7 +13,7 @@ Storage.prototype.getObject = function (key) {
 var storage = new Storage();
 
 $(document).ready(function () {
-    console.log("test");
+    // console.log("test");
 
     var $refresh = $("#refresh");
     $refresh.click(function () {

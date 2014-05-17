@@ -1,4 +1,4 @@
-console.log("vis loaded");
+// console.log("vis loaded");
 
 var svg;
 var barData;
