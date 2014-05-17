@@ -58,11 +58,11 @@ $(document).ready(function () {
             hidejob = setInterval(function(){
                 // console.log("job interval open openMinValURL");
                 openMinValURL()
-            }, 500);
+            }, 1000);
             refreshjob = setInterval(function(){
                 // console.log("job2 interval refresh");
                 $refresh.click();
-            }, 5000);
+            }, 8000);
             startHideMyAss();
             $(".hiding").show();
         }else {
@@ -116,7 +116,7 @@ $(document).ready(function () {
                 setTimeout(function() {
                     chrome.tabs.remove([tab.id]);
                     // console.log("closing url: "+url);
-                },4000);
+                },1000);
              });                
         }
 

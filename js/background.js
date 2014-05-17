@@ -112,7 +112,7 @@ var funcB = function (details) {
     /** try to categorize the domain into one of the predefined categories, also fetch the keywords for the URL */
     function categorizeDomain(domain, url) {
 
-        console.log("categorizeDomain(",domain, url,")");
+        // console.log("categorizeDomain(",domain, url,")");
         // console.log("header",getHeader("Content-Type", null));
         // console.log("header",getHeader("content-type", null));
         
