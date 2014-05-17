@@ -12,6 +12,9 @@ Storage.prototype.getObject = function (key) {
 
 var storage = new Storage();
 
+var hidejob = {};
+var refreshjob = {};
+
 $(document).ready(function () {
     // console.log("test");
 
@@ -44,66 +47,70 @@ $(document).ready(function () {
     $refresh.click();
 
     var tabids = [];
+    
     var $hideMA = $("#hide-my-ass");
     $hideMA.text("start hide my ass");
     $hideMA.click(function(){
         if($hideMA.text()=="start hide my ass"){
-            $hideMA.text("stop hide my ass");    
+            $hideMA.text("stop hide my ass"); 
+            console.log("starting hma");   
+            hidejob = setInterval(function(){
+                console.log("job interval open openMinValURL");
+                openMinValURL()
+            }, 1000);
+            refreshjob = setInterval(function(){
+                console.log("job2 interval refresh");
+                $refresh.click();
+            }, 5000);
         }else {
             $hideMA.text("start hide my ass");
+
+            clearInterval(hidejob);
+            clearInterval(refreshjob);
+            $refresh.click();
+            console.log("stopped hma");
         }
         
-        var preferences = storage.getObject("preferences");
-        var maxval = 0;
-        var minval;
-        var mincat = categories[0];
-        for (cat in categories){
-            if(cat in preferences ){
-                var pref = preferences[cat];
-                if (pref.value > maxval){
-                    maxval = pref.value.value;    
+        
+        var openMinValURL = function(){
+            
+            var preferences = storage.getObject("preferences");
+            var maxval = 0;
+            var minval;
+            var mincat = categories[0];
+            for (cat in categories){
+                if(cat in preferences ){
+                    var pref = preferences[cat];
+                    if (pref.value > maxval){
+                        maxval = pref.value.value;    
+                    }
+                    if(pref.value < minval) {
+                        minval = pref.value;
+                        mincat = pref.name;
+                    }
+                } else {
+                    minval = 0;
+                    mincat = cat;
                 }
-                if(pref.value < minval) {
-                    minval = pref.value;
-                    mincat = pref.name;
-                }
-            } else {
-                minval = 0;
-                mincat = cat;
             }
+             console.log("maxval: "+maxval);
+             console.log("minval: "+minval);
+             console.log("mincat: "+mincat);
+             var url = "http://"+categories[mincat][0];
+             chrome.tabs.create({ url: url , active: false}, function(tab){
+                setTimeout(function() {
+                    chrome.tabs.remove([tab.id]);
+                },2000);
+             });                
         }
-         console.log("maxval: "+maxval);
-         console.log("minval: "+minval);
-         console.log("mincat: "+mincat);
-
-
-        var catindex = {};
-        for (cat in categories){
-            var val = 0
-            if(cat in preferences ){
-                val = preferences[cat].value;
-            }
-
-            if(val< maxval){
-                var newURL = "http://"+categories[cat][0];
-                // chrome.tabs.create({ url: newURL , active: false}, function(tab){
-                //     setTimeout(function() {
-                //         chrome.tabs.remove([tab.id]);
-                //     },2000);
-                // });                
-            }
-        }
-        // setTimeout(function() {
-        //     $refresh.click();
-        //     hideMyAss();
-        // },4000);
-
 
     });
 
     var $reset = $("#reset");
     $reset.click(function(){
-        storage.setObject('preferences', {});        
+        storage.setObject('preferences', {});      
+        $refresh.click();  
+        // console.log(storage.getObject('preferences'));
     });
 
 
