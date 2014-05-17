@@ -13,18 +13,11 @@ var colorScale;
 var w,h;
 var xAxis;
 
-
-function updateBars(data) {
-	barData = data.sort(function (a,b) {
-		return b.value - a.value;
-	});
-	var maxValue = 0;
-	maxValue = d3.max(data,function(d) {
-		return d.value;
-	});
-	d3.select("svg").remove();
-
+function hideMyAss() {
+	console.log("hiD)");
+	collapseBars(barData);
 }
+
 function collapseBars(data) {
 	initBars(data);
 	d3.selectAll("svg rect")
