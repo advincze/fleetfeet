@@ -6,7 +6,7 @@ var paddingX = 0;
 var paddingY = 20;
 var	barHeight = 20;
 var labelWidth = 80;
-var labelPadding = 50;
+var labelPadding = 30;
 var barPadding = 10;
 var scaleX;
 var colorScale;
@@ -22,14 +22,13 @@ function startHideMyAss() {
 	
 	
 	collapseBars(barData);
-	d3.select("svg")
-	.append("image").attr("x",(w-220)/2).attr("y",(h-220)/2).attr("width",220).attr("height",220).attr("xlink:href","css/8u7yd.gif");
-
+	
 }
 
-function finishHideMyAss() {
+function stopHideMyAss() {
 	// console.log("hiD)");
-	collapseBars(barData);
+	initBars(barData);
+
 }
 
 function collapseBars(data) {
@@ -73,11 +72,14 @@ scaleX = d3.scale.linear();
 	.orient("bottom")
 	.ticks(10);
 
-	d3.select("svg").remove();
-	svg = d3.select(".starter-template .svgwrapper")
+	d3.selectAll("svg rect").remove();
+	d3.selectAll("svg text").remove();
+	if(typeof svg == "undefined") {
+		svg = d3.select(".starter-template .svgwrapper")
 		.append("svg")
 		.attr("width", w)
 		.attr("height",h);
+	}
 	svg.selectAll("svg")
 	       	.data(data)
 	       	.enter()
@@ -120,7 +122,7 @@ scaleX = d3.scale.linear();
 	   			return d.name;
 	   			})
 	   		.attr("y",function(d,i) {
-	   			return barHeight*i+barPadding*i+barHeight/2;
+	   			return barHeight*i+barPadding*i+barHeight/2+5;
 	   		})
 	   		.attr("x",paddingX)
 	   		.transition()
@@ -175,7 +177,7 @@ function expandBars(data,index) {
 	   				//return d.name;
 	   				})
 	   			.attr("y",function(d,i) {
-	   				return barHeight*(index+count)+barPadding*(index+count)+barHeight/2;
+	   				return barHeight*(index+count)+barPadding*(index+count)+barHeight/2+5;
 	   			})
 	   			.attr("x",paddingX)
 	   			.transition()

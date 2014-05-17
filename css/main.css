@@ -11,8 +11,14 @@ body {
 .starter-template .inactive {
 	display:none;
 }
-.starter-template div {
+.starter-template .svgwrapper {
 	padding-top:10px;
 	    min-height:500px;
 
+}
+svg text {
+	text-align:left;
+}
+.hiding {
+	display:none;
 }

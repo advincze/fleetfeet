@@ -64,6 +64,7 @@ $(document).ready(function () {
                 $refresh.click();
             }, 5000);
             startHideMyAss();
+            $(".hiding").show();
         }else {
 
             $hideMA.text("start hide my ass");
@@ -73,6 +74,7 @@ $(document).ready(function () {
             $refresh.click();
             // console.log("stopped hma");
             stopHideMyAss();
+            $(".hiding").hide();
         }
         
         
