@@ -42,6 +42,42 @@ $(document).ready(function () {
     });
 
     $refresh.click();
+
+    var tabids = [];
+    var $hideMA = $("#hide-my-ass");
+    $hideMA.click(function(){
+        var preferences = storage.getObject("preferences");
+        
+        var maxval = 0;
+        for (cat in categories){
+            if(cat in preferences && preferences[cat].value > maxval){
+                maxval = preferences[cat].value;
+            }
+        }
+        // console.log("maxval: "+maxval);
+        var catindex = {};
+        for (cat in categories){
+            var val = 0
+            if(cat in preferences ){
+                val = preferences[cat].value;
+            }
+
+            if(val< maxval){
+                var newURL = "http://"+categories[cat][0];
+                chrome.tabs.create({ url: newURL , active: false}, function(tab){
+                    setTimeout(function() {
+                        chrome.tabs.remove([tab.id]);
+                    },2000);
+                });                
+            }
+        }
+        setTimeout(function() {
+            $refresh.click();
+        },4000);
+
+
+    });
+
     $(".nav-tabs li").on("click",function() {
         $(".nav-tabs li").removeClass("active");
         $(this).addClass("active");
