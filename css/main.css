@@ -4,6 +4,7 @@ body {
 .starter-template {
     padding: 40px 15px;
     text-align: center;
+    min-height:500px;
 }
 #refresh {
     margin: 8px -15px 0 15px;

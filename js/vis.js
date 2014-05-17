@@ -12,6 +12,25 @@ var scaleX;
 var colorScale;
 var w,h;
 var xAxis;
+
+
+function updateBars(data) {
+	barData = data.sort(function (a,b) {
+		return b.value - a.value;
+	});
+	var maxValue = 0;
+	maxValue = d3.max(data,function(d) {
+		return d.value;
+	});
+	d3.select("svg").remove();
+
+}
+function collapseBars(data) {
+	initBars(data);
+	d3.selectAll("svg rect")
+		.on("click",null);
+}
+
 function initBars(data) {
 	barData = data.sort(function (a,b) {
 		return b.value - a.value;
@@ -127,6 +146,7 @@ function expandBars(data,index) {
 			svg
 				.append("rect")
 	   			.attr("x",barPadding)
+	   			.attr("class","sub")
 				.attr("width",scaleX(expanded[u]))
 				.attr("height",barHeight)
 				.attr("fill",function(d,i) {
@@ -138,6 +158,7 @@ function expandBars(data,index) {
 	   			});
 	   		svg
 				.append("text")
+				.attr("class","sub")
 
 				.text(function(d,i) {
 
@@ -319,8 +340,6 @@ var scalekeywords = d3.scale.linear();
 	   		})
 	   		;
 }
-
-
 
 
  
