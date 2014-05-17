@@ -1,19 +1,22 @@
 {
     "manifest_version": 2,
 
-    "name": "Digital Footprint Graph",
-    "description": "Visualize digital Footprints",
-    "version": "1.0",
+    "name": "Fleet Feet",
+    "description": "Visualize and hide your digital footprint",
+    "version": "0.4",
     "permissions": [
         "webRequest",
         "webRequestBlocking",
         "<all_urls>"
     ],
     "background": {
-//        "scripts": ["js/lib/jquery-2.1.1.min.js","js/background.js"],
         "page": "background.html",
         "persistent": true
     },
+    "icons": { 
+          "16": "icon.png",
+           "48": "icon.png",
+          "128": "icon.png" },
     "content_scripts": [
         {
             "matches": ["http://www.welt.de/*"],

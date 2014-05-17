@@ -49,12 +49,12 @@ $(document).ready(function () {
     var tabids = [];
     
     var $hideMA = $("#hide-my-ass");
-    $hideMA.text("start hide my ass");
+    $hideMA.text("Faking on");
     $hideMA.click(function(){
-        if($hideMA.text()=="start hide my ass"){
+        if($hideMA.text()=="Faking on"){
 
-            $hideMA.text("stop hide my ass"); 
-            console.log("starting hma");   
+            $hideMA.text("Faking off"); 
+            
             hidejob = setInterval(function(){
                 // console.log("job interval open openMinValURL");
                 openMinValURL()
@@ -67,7 +67,7 @@ $(document).ready(function () {
             $(".hiding").show();
         }else {
 
-            $hideMA.text("start hide my ass");
+            $hideMA.text("Faking on");
 
             clearInterval(hidejob);
             clearInterval(refreshjob);

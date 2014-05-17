@@ -7,6 +7,7 @@ body {
 }
 .navbar-nav a {
     margin: 8px -15px 0 15px;
+    text-transform: uppercase;
 }
 .starter-template .inactive {
 	display:none;
