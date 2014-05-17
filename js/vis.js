@@ -227,47 +227,4 @@ function expandBars(data,index) {
 		});
 			
 		}
-	/*	svg.selectAll("svg")
-			.data(data)
-				function(d,i) {
-				console.log(d,i);
-				
-			})
-			.filter(function(d,i) {
-				console.log(d);
-				if(typeof expanded[domains[i]] != "undefined") {
-					return false;
-				} else {
-					return true;
-				}
-			})
-	       	
-	       	.append("rect")
-	       	.attr("height",barHeight)
-	  		.attr("width",0)
-	  		.attr("y",function(d,i) {
-	       		return barHeight*i+barPadding*i;
-	       	})
-			.attr("x",paddingX)
-	       	.transition()
-	      	.duration(450)
-	     	.delay(function(d,i) {
-	       		return 200*i;
-	       	})
-     		.attr("width",function(d,i) {
-     			console.log(d);
-     			return 0;
-     			return scaleX(Math.log(d.value));
-       		})
-			.attr("fill",function(d,i) {
-				return "#000";
-				//return "rgb("+Math.round(colorScale(Math.log(d.value)))+",0,0)";
-	   		});
-	   */
-
-
-
- 
-//updateData(data);
-//initBars([{news:5},{entertainment:10}]);
-
+	
