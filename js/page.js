@@ -52,23 +52,27 @@ $(document).ready(function () {
     $hideMA.text("start hide my ass");
     $hideMA.click(function(){
         if($hideMA.text()=="start hide my ass"){
+
             $hideMA.text("stop hide my ass"); 
             console.log("starting hma");   
             hidejob = setInterval(function(){
-                console.log("job interval open openMinValURL");
+                // console.log("job interval open openMinValURL");
                 openMinValURL()
             }, 1000);
             refreshjob = setInterval(function(){
-                console.log("job2 interval refresh");
+                // console.log("job2 interval refresh");
                 $refresh.click();
             }, 5000);
+            startHideMyAss();
         }else {
+
             $hideMA.text("start hide my ass");
 
             clearInterval(hidejob);
             clearInterval(refreshjob);
             $refresh.click();
-            console.log("stopped hma");
+            // console.log("stopped hma");
+            stopHideMyAss();
         }
         
         
@@ -93,14 +97,16 @@ $(document).ready(function () {
                     mincat = cat;
                 }
             }
-             console.log("maxval: "+maxval);
-             console.log("minval: "+minval);
-             console.log("mincat: "+mincat);
-             var url = "http://"+categories[mincat][0];
+             // console.log("maxval: "+maxval);
+             // console.log("minval: "+minval);
+             // console.log("mincat: "+mincat);
+             var url = "http://"+categories[mincat][3];
+             // console.log("opening url: "+url);
              chrome.tabs.create({ url: url , active: false}, function(tab){
                 setTimeout(function() {
                     chrome.tabs.remove([tab.id]);
-                },2000);
+                    // console.log("closing url: "+url);
+                },3000);
              });                
         }
 

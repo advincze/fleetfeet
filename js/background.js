@@ -64,7 +64,7 @@ var funcB = function (details) {
          */
         function mergeKeywords(keywords, newKeyword) {
 
-            console.log("adding " + newKeyword + " to " + keywords);
+            // console.log("adding " + newKeyword + " to " + keywords);
 
             for (var j = 0; j < keywords.length; j++) {
 
