@@ -10,6 +10,7 @@ var labelPadding = 20;
 var barPadding = 10;
 var scaleX;
 var colorScale;
+var w,h;
 var xAxis;
 function initBars(data) {
 	barData = data.sort(function (a,b) {
@@ -23,8 +24,8 @@ function initBars(data) {
 
 //var w = window.innerWidth-16;
 //var h = window.innerHeight-16;
-var w = $(".starter-template").outerWidth();
-var h = $(".starter-template").outerHeight();
+w = $(".starter-template").outerWidth();
+h = $(".starter-template").outerHeight();
 
 
 maxValue = d3.max(data,function(d) {
@@ -192,7 +193,7 @@ function expandBars(data,index) {
 			return parseInt(d3.select(this).attr("y"))+barHeight*(count-1)+barPadding*(count-1);
 		});
 			
-		
+		}
 	/*	svg.selectAll("svg")
 			.data(data)
 				function(d,i) {
@@ -234,54 +235,95 @@ function expandBars(data,index) {
 
 
 
-}
-
- function tagCloud() {
- 	
-	console.log(barData[0].keywords);
-  	d3.layout.cloud().size([300, 300])
-      .words([{text:"a",size:10},{text:"b",size:20}])
-      .rotate(function() { return ~~(Math.random() * 2) * 90; })
-      .font("Impact")
-      .fontSize(function(d) { return d.size; })
-      .on("end", draw)
-      .start();
-}
-  	function draw(words) {
-  		console.log("draw");
-	    d3.select(".starter-template .keywordwrapper").append("svg")
-        .attr("width", 300)
-        .attr("height", 300)
-      .append("g")
-        .attr("transform", "translate(150,150)")
-      .selectAll("text")
-        .data(words)
-      .enter().append("text")
-        .style("font-size", function(d) { return d.size + "px"; })
-        .style("font-family", "Impact")
-        .style("fill", "#f00")
-        .attr("text-anchor", "middle")
-        .attr("transform", function(d) {
-          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-        })
-        .text(function(d) { return d.text; });
-  }
 
 
 
+function keywords(categoryId) {
+	
+	var maxValue = 0;
+	
+//	var w = window.innerWidth-16;
+
+//var w = window.innerWidth-16;
+//var h = window.innerHeight-16;
+w = $(".starter-template").outerWidth();
+h = $(".starter-template").outerHeight();
 
 
+maxValue = d3.max(barData[categoryId],function(d) {
+	return d.value;
+});
 
-function updateData(data) {
+//var h = nToShow*(barHeight+barPadding)+100;
+var scalekeywords = d3.scale.linear();
+	//scaleX.domain([0,maxes[keys[0]]]);
+	scalekeywords.domain([0,maxValue]);
+	scalekeywords.range([0,w-paddingX-1-labelWidth-labelPadding]);
+
+	d3.select("svg").remove();
+	svg = d3.select(".starter-template .svgwrapper")
+		.append("svg")
+		.attr("width", w)
+		.attr("height",h);
 	svg.selectAll("svg")
 	       	.data(data)
-	       	.attr("width",function(d,i) {
-     			return scaleX(Math.log(d.value));
+	       	.enter()
+	       	.append("rect")
+	       	.attr("height",barHeight)
+	  		.attr("width",0)
+	  		.attr("y",function(d,i) {
+	       		return barHeight*i+barPadding*i;
+	       	})
+	       	.on("click",function(d,i,u){
+	       		expandBars(d,i);
+	       	})
+	       	.on("mouseover",function(d,i,u){
+	       		d3.select(this).attr("stroke","#000");
+	       	})
+	       	.on("mouseout",function(d,i,u){
+	       		d3.select(this).attr("stroke","none");
+	       	})
+			.attr("x",paddingX)
+	       	.transition()
+	      	.duration(450)
+	     	.delay(function(d,i) {
+	       		return 200*i;
+	       	})
+     		.attr("width",function(d,i) {
+     			return scaleX(d.value);
        		})
+       		.attr("class","main")
 			.attr("fill",function(d,i) {
-				return "rgb("+Math.round(colorScale(Math.log(d.value)))+",0,0)";
+				return colorScale2(i);
+				//return "rgb("+Math.round(colorScale(d.value))+",0,0)";
 	   		});
+	   	svg.selectAll("svg")
+	   		.data(data)
+	   		.enter()
+	   		.append("text")
+	   		.attr("class","main")
+	   		.text(function(d,i) {
+	   			return d.name;
+	   			})
+	   		.attr("y",function(d,i) {
+	   			return barHeight*i+barPadding*i+barHeight/2;
+	   		})
+	   		.attr("x",paddingX)
+	   		.transition()
+	   		.duration(450)
+	   		.delay(function(d,i) {
+	   			return 200*i;
+	   		})
+	   		.attr("x",function(d,i) {
+	   			return scaleX(d.value)+labelPadding;
+	   		})
+	   		;
 }
+
+
+
+
+ 
 //updateData(data);
 //initBars([{news:5},{entertainment:10}]);
 
