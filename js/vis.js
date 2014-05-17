@@ -6,7 +6,7 @@ var paddingX = 0;
 var paddingY = 20;
 var	barHeight = 20;
 var labelWidth = 80;
-var labelPadding = 20;
+var labelPadding = 50;
 var barPadding = 10;
 var scaleX;
 var colorScale;
@@ -83,6 +83,7 @@ scaleX = d3.scale.linear();
 	       		return barHeight*i+barPadding*i;
 	       	})
 	       	.on("click",function(d,i,u){
+	       		d3.select(this).on("click",null);
 	       		expandBars(d,i);
 	       	})
 	       	.on("mouseover",function(d,i,u){
