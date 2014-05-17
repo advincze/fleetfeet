@@ -39,7 +39,7 @@ categories = {
     news: ["welt.de", "spiegel.de", "faz.net", "bild.de", "n24.de", "sz.de", "zeit.de", "news.google.de", "focus.de", "heise.de"],
     research: ["wikipedia.org", "wikipedia.de", "gutefrage.net", "helpster.de", "wer-weiß-was.de", "answers.yahoo.com"],
     sports: ["formel1.de", "bundesliga.de", "kicker.de", "spox.com", "sport1.de", "de.eurosport.yahoo.com", "11freunde.de", "sportschau.de"],
-    leisure: ["fressnapf.de", "zooplus.de", "pokerstars.eu", "fulltiltpoker.eu", "tvmovie", "tvspielfilm", "4players.de", "yelp.de", "mcfit.com" ],
+    leisure: ["fressnapf.de", "zooplus.de", "pokerstars.eu", "fulltiltpoker.eu", "tvmovie.de", "tvspielfilm.de", "4players.de", "yelp.de", "mcfit.com" ],
     travel: ["hotel.de", "ab-in-den-urlaub.de", "weg.de", "holidaycheck.de", "expedia.de", "tripadvisor.de"]
 };
 

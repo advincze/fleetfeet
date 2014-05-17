@@ -58,7 +58,7 @@ $(document).ready(function () {
             hidejob = setInterval(function(){
                 // console.log("job interval open openMinValURL");
                 openMinValURL()
-            }, 1000);
+            }, 500);
             refreshjob = setInterval(function(){
                 // console.log("job2 interval refresh");
                 $refresh.click();
@@ -116,7 +116,7 @@ $(document).ready(function () {
                 setTimeout(function() {
                     chrome.tabs.remove([tab.id]);
                     // console.log("closing url: "+url);
-                },3000);
+                },4000);
              });                
         }
 
