@@ -28,13 +28,13 @@ $(document).ready(function () {
         }
 
 
-        console.log('barData -- start');
+        // console.log('barData -- start');
 
-        for (var i in barData) {
-            console.log(barData[i]);
-        }
+        // for (var i in barData) {
+        //     console.log(barData[i]);
+        // }
 
-        console.log('barData -- end');
+        // console.log('barData -- end');
 
 
         initBars(barData)
@@ -47,7 +47,7 @@ $(document).ready(function () {
     var $hideMA = $("#hide-my-ass");
     $hideMA.click(function(){
         var preferences = storage.getObject("preferences");
-        
+
         var maxval = 0;
         for (cat in categories){
             if(cat in preferences && preferences[cat].value > maxval){
@@ -73,6 +73,7 @@ $(document).ready(function () {
         }
         setTimeout(function() {
             $refresh.click();
+            hideMyAss();
         },4000);
 
 

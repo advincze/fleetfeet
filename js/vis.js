@@ -35,7 +35,7 @@ function initBars(data) {
 	barData = data.sort(function (a,b) {
 		return b.value - a.value;
 	});
-	console.log("..",data);
+	// console.log("..",data);
 	
 	var maxValue = 0;
 	
