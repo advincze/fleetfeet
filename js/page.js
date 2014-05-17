@@ -45,7 +45,14 @@ $(document).ready(function () {
 
     var tabids = [];
     var $hideMA = $("#hide-my-ass");
+    $hideMA.text("start hide my ass");
     $hideMA.click(function(){
+        if($hideMA.text()=="start hide my ass"){
+            $hideMA.text("stop hide my ass");    
+        }else {
+            $hideMA.text("start hide my ass");
+        }
+        
         var preferences = storage.getObject("preferences");
         var maxval = 0;
         var minval;

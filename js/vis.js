@@ -14,7 +14,17 @@ var w,h;
 var xAxis;
 
 function hideMyAss() {
-	console.log("hiD)");
+	// console.log("hiD)");
+	collapseBars(barData);
+}
+
+function startHideMyAss() {
+	// console.log("hiD)");
+	collapseBars(barData);
+}
+
+function finishHideMyAss() {
+	// console.log("hiD)");
 	collapseBars(barData);
 }
 
