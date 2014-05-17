@@ -82,13 +82,15 @@ $(document).ready(function () {
             
             var preferences = storage.getObject("preferences");
             var maxval = 0;
-            var minval;
+            var minval = 5000000;
             var mincat = categories[0];
+            var maxcat = categories[0];
             for (cat in categories){
                 if(cat in preferences ){
                     var pref = preferences[cat];
                     if (pref.value > maxval){
-                        maxval = pref.value.value;    
+                        maxval = pref.value;    
+                        maxcat = pref.name;
                     }
                     if(pref.value < minval) {
                         minval = pref.value;
@@ -100,10 +102,16 @@ $(document).ready(function () {
                 }
             }
              // console.log("maxval: "+maxval);
-             // console.log("minval: "+minval);
-             // console.log("mincat: "+mincat);
-             var url = "http://"+categories[mincat][3];
-             // console.log("opening url: "+url);
+             
+             console.log("min: ",mincat, " ", minval);
+             console.log("max: ",maxcat," ",maxval);
+             var urls = categories[mincat];
+             var idx = Math.floor((Math.random() * urls.length));
+             console.log("idx: ", idx);
+             var url = "http://"+urls[idx];
+             
+
+             console.log("opening url: "+url);
              chrome.tabs.create({ url: url , active: false}, function(tab){
                 setTimeout(function() {
                     chrome.tabs.remove([tab.id]);
